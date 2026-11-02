@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Happy Birthday ❤️</title>
+  <meta name="theme-color" content="#ffc2d4">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts: Google Fonts (free, no key). If offline, the site falls back to system fonts. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;500;600&family=Caveat:wght@500;600&family=Dancing+Script:wght@400;700&family=Playpen+Sans+Arabic:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-locked">
+
+  <!-- Reusable flower drawing -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="flower" viewBox="-50 -50 100 100">
+        <g fill="currentColor">
+          <ellipse cx="0" cy="-27" rx="15" ry="23"/>
+          <ellipse cx="0" cy="-27" rx="15" ry="23" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-27" rx="15" ry="23" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-27" rx="15" ry="23" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-27" rx="15" ry="23" transform="rotate(288)"/>
+        </g>
+        <circle r="11" fill="#ffd36e"/>
+        <circle r="5" fill="#f5a623" opacity=".55"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Particle canvas: hearts, petals, sparkles -->
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <!-- Music toggle (hidden until an audio file is found) -->
+  <button id="musicBtn" class="music-btn" type="button" hidden aria-pressed="false" aria-label="Play music" title="Music on/off">
+    <span class="music-btn__icon" aria-hidden="true">♪</span>
+  </button>
+
+  <!-- ===================== 1. INTRO ===================== -->
+  <section id="intro" class="intro" aria-labelledby="introTitle">
+    <svg class="intro__flower f1" aria-hidden="true"><use href="#flower"/></svg>
+    <svg class="intro__flower f2" aria-hidden="true"><use href="#flower"/></svg>
+    <svg class="intro__flower f3" aria-hidden="true"><use href="#flower"/></svg>
+    <div class="intro__inner">
+      <div class="intro__heart" aria-hidden="true">❤</div>
+      <p class="intro__eyebrow" id="introEyebrow"></p>
+      <h1 class="script intro__title" id="introTitle"></h1>
+      <button id="openBtn" class="btn btn--glow" type="button"></button>
+    </div>
+  </section>
+
+  <!-- ===================== MAIN EXPERIENCE ===================== -->
+  <main id="main" class="main" hidden>
+
+    <!-- 2. HERO -->
+    <section id="hero" class="hero" aria-labelledby="heroTitle">
+      <div class="hero__blob b1" data-speed="0.12" aria-hidden="true"></div>
+      <div class="hero__blob b2" data-speed="-0.08" aria-hidden="true"></div>
+      <svg class="flower fl1" data-speed="0.18" aria-hidden="true"><use href="#flower"/></svg>
+      <svg class="flower fl2" data-speed="-0.12" aria-hidden="true"><use href="#flower"/></svg>
+      <svg class="flower fl3" data-speed="0.1" aria-hidden="true"><use href="#flower"/></svg>
+      <svg class="flower fl4" data-speed="-0.16" aria-hidden="true"><use href="#flower"/></svg>
+
+      <div class="hero__content">
+        <p class="pill" id="heroDate" hidden></p>
+        <h2 class="script hero__title" id="heroTitle"><span class="typed" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span></h2>
+        <p class="hero__subtitle reveal-up" id="heroSubtitle"></p>
+        <div class="hero__hearts reveal-up" aria-hidden="true"><span>❤</span><span>❤</span><span>❤</span><span>❤</span><span>❤</span></div>
+        <button id="startBtn" class="btn btn--glow reveal-up" type="button"></button>
+      </div>
+
+      <a class="scroll-hint" href="#gallery" aria-label="Scroll down to the photos"><span></span></a>
+      <div class="wave wave--cream" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,45 C220,100 460,0 720,45 C980,92 1200,8 1440,45 L1440,90 L0,90 Z"/></svg></div>
+    </section>
+
+    <!-- 3. GALLERY -->
+    <section id="gallery" class="gallery" aria-labelledby="galleryTitle">
+      <div class="container">
+        <h2 class="script section-title" id="galleryTitle"><span></span></h2>
+        <p class="section-sub" id="gallerySub"></p>
+        <div class="photo-grid" id="photoGrid"></div>
+      </div>
+      <div class="wave wave--purple" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,50 C240,0 480,95 760,50 C1000,12 1220,90 1440,40 L1440,90 L0,90 Z"/></svg></div>
+    </section>
+
+    <!-- 4. ENVELOPE & LETTER -->
+    <section id="letter" class="letter-sec" aria-labelledby="letterHeading">
+      <div class="stars" id="stars" aria-hidden="true"></div>
+      <div class="container letter-sec__inner">
+        <h2 class="script section-title section-title--light" id="letterHeading"><span></span></h2>
+
+        <button id="envelopeBtn" class="envelope" type="button" aria-haspopup="dialog" aria-expanded="false" aria-describedby="envHint">
+          <span class="env-back"></span>
+          <span class="env-letter" aria-hidden="true">
+            <i></i><i></i><i></i><i class="short"></i>
+          </span>
+          <span class="env-pocket"></span>
+          <span class="env-flap"></span>
+          <span class="env-seal" aria-hidden="true">❤</span>
+        </button>
+        <p class="envelope-hint" id="envHint"></p>
+      </div>
+      <div class="wave wave--rose" aria-hidden="true"><svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,40 C260,95 520,5 780,50 C1010,90 1230,10 1440,50 L1440,90 L0,90 Z"/></svg></div>
+    </section>
+
+    <!-- 5. FINALE -->
+    <section id="finale" class="finale" aria-labelledby="finaleTitle">
+      <svg class="flower fl5" aria-hidden="true"><use href="#flower"/></svg>
+      <svg class="flower fl6" aria-hidden="true"><use href="#flower"/></svg>
+      <div class="container finale__inner">
+        <h2 class="script section-title section-title--light" id="finaleTitle"><span></span></h2>
+        <p class="finale__hint" id="finaleHint"></p>
+
+        <button id="candleBtn" class="cake" type="button" aria-label="Blow out the candle and make a wish">
+          <span class="cake__flame" aria-hidden="true"></span>
+          <span class="cake__smoke" aria-hidden="true"></span>
+          <span class="cake__candle" aria-hidden="true"></span>
+          <span class="cake__top" aria-hidden="true"></span>
+          <span class="cake__body" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="cake__plate" aria-hidden="true"></span>
+        </button>
+
+        <p class="finale__wish script" id="finaleWish"></p>
+        <p class="finale__after" id="finaleAfter" aria-live="polite"></p>
+        <button id="replayBtn" class="btn btn--ghost" type="button"></button>
+      </div>
+      <footer class="footer"><p id="footerText"></p></footer>
+    </section>
+  </main>
+
+  <!-- ===================== LETTER DIALOG ===================== -->
+  <div id="letterModal" class="letter-modal" role="dialog" aria-modal="true" aria-labelledby="letterTitle" hidden>
+    <div class="paper-wrap">
+      <article class="paper">
+        <button id="letterClose" class="paper__close" type="button" aria-label="Close the letter">×</button>
+        <div class="paper__scroll" id="paperScroll" tabindex="0">
+          <div class="paper__ornament" aria-hidden="true">❦</div>
+          <h3 class="script paper__title" id="letterTitle"></h3>
+          <p class="paper__salutation hand" id="letterSalutation"></p>
+          <div class="paper__body hand" id="letterBody"></div>
+          <p class="paper__signature hand" id="letterSignature"></p>
+          <p class="paper__date hand" id="letterDate"></p>
+          <div class="paper__seal" aria-hidden="true">❤</div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ===================== PHOTO VIEWER ===================== -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button id="lightboxClose" class="lightbox__close" type="button" aria-label="Close photo">×</button>
+    <figure>
+      <img id="lightboxImg" alt="">
+      <figcaption id="lightboxCap" class="script"></figcaption>
+    </figure>
+  </div>
+
+  <audio id="bgm" preload="none" loop></audio>
+
+  <noscript><p style="position:fixed;inset:auto 0 0 0;background:#fff;padding:12px;text-align:center;z-index:999">Please enable JavaScript to see the birthday surprise ❤️</p></noscript>
+
+  <!-- Your personal content (edit this one!) then the animation code -->
+  <script src="src/data/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
